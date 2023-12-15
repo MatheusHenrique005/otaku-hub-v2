@@ -12,6 +12,19 @@ dist
 dist-ssr
 *.local
 
+# OS
+.DS_Store
+Thumbs.db
+
+# Backend
+.env
+dist
+
+# Frontend
+.next/
+out/
+build
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
