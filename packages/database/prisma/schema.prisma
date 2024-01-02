@@ -1,0 +1,71 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                              Int       @id @default(autoincrement())
+  email                           String    @unique
+  name                            String
+  nickname                        String?   @unique
+  password                        String
+  createdAt                       DateTime  @default(now())
+  updatedAt                       DateTime
+  deletedAt                       DateTime?
+  comment                         Comment[]
+  follow_follow_followerIdTouser  Follow[]  @relation("follow_followerIdTouser")
+  follow_follow_followingIdTouser Follow[]  @relation("follow_followingIdTouser")
+  likes                           Like[]
+  post                            Post[]
+}
+
+model Post {
+  id        Int       @id @default(autoincrement())
+  title     String
+  content   String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime
+  deletedAt DateTime?
+  authorId  Int
+  comment   Comment[]
+  likes     Like[]
+  user      User      @relation(fields: [authorId], references: [id], map: "Post_authorId_fkey")
+}
+
+model Like {
+  id        Int       @id @default(autoincrement())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime
+  deletedAt DateTime?
+  authorId  Int
+  postId    Int
+  user      User      @relation(fields: [authorId], references: [id], map: "Likes_authorId_fkey")
+  post      Post      @relation(fields: [postId], references: [id], map: "Likes_postId_fkey")
+}
+
+model Comment {
+  id        Int       @id @default(autoincrement())
+  content   String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime
+  deletedAt DateTime?
+  authorId  Int
+  postId    Int
+  user      User      @relation(fields: [authorId], references: [id], map: "Comment_authorId_fkey")
+  post      Post      @relation(fields: [postId], references: [id], map: "Comment_postId_fkey")
+}
+
+model Follow {
+  id                            Int       @id @default(autoincrement())
+  createdAt                     DateTime  @default(now())
+  updatedAt                     DateTime
+  deletedAt                     DateTime?
+  followerId                    Int
+  followingId                   Int
+  user_follow_followerIdTouser  User      @relation("follow_followerIdTouser", fields: [followerId], references: [id], map: "Follow_followerId_fkey")
+  user_follow_followingIdTouser User      @relation("follow_followingIdTouser", fields: [followingId], references: [id], map: "Follow_followingId_fkey")
+}

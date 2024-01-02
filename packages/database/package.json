@@ -1,0 +1,19 @@
+{
+  "name": "database",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "scripts": {
+    "prisma": "npx prisma",
+    "migrate:dev": "npx prisma migrate dev",
+    "generate": "npx prisma generate",
+    "pull": "npx prisma db pull",
+    "push": "npx prisma db push"
+  },
+  "author": "MatheusHenrique005",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "typescript": "^5.3.3",
+    "@prisma/client": "^5.7.1",
+    "prisma": "^5.7.1"
+  }
+}
