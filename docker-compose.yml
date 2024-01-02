@@ -1,0 +1,22 @@
+version: '3.1'
+
+services:
+  database:
+    image: postgres
+    container_name: otaku-hub-database
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: otaku-hub
+    ports:
+      - 5432:5432
+    volumes:
+      - ./postgres/data:/var/lib/postgresql/data
+    networks:
+      - otaku-hub-network
+  
+networks:
+  otaku-hub-network:
+
+volumes:
+  otaku-hub-volume:

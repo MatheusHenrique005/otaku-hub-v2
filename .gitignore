@@ -7,6 +7,12 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+build/**
+dist/**
+.next/**
+.turbo
+mysql
+postgres
 node_modules
 dist
 dist-ssr
